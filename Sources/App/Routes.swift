@@ -9,7 +9,8 @@ extension Droplet {
         }
 
         get("plaintext") { req in
-            return "Hello, world!"
+            let name = req.data["name"]?.string ?? "vapor"
+            return "\(name)"
         }
 
         // response to requests to /info domain
@@ -19,6 +20,15 @@ extension Droplet {
         }
 
         get("description") { req in return req.description }
+        post("postName") { req in
+            let name = req.data["name"]?.string ?? "vapor"
+            return "\(name)"
+        }
+        post("upload") { req in
+            let name0 = req.data["data0"]?.string ?? "vapor"
+            let name1 = req.data["data1"]?.string ?? "vapor"
+            return name0 + name1
+        }
         
         try resource("posts", PostController.self)
     }
